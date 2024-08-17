@@ -14,11 +14,13 @@ class Invoice < ApplicationRecord
 
   belongs_to :customer, -> { with_discarded }
   belongs_to :organization
+  belongs_to :payable_group, optional: true
 
   has_many :fees
   has_many :credits
   has_many :wallet_transactions
-  has_many :payments
+  has_many :payments, as: :payable
+  has_many :payment_requests, as: :payment_requestable
   has_many :invoice_subscriptions
   has_many :subscriptions, through: :invoice_subscriptions
   has_many :plans, through: :subscriptions
